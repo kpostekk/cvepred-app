@@ -6,6 +6,7 @@ import type { components } from "../../clients/schema"
 import z from "zod"
 import { useCallback, useEffect, useState } from "react"
 import { VscLoading } from "react-icons/vsc"
+import { VscAdd, VscRemove } from "react-icons/vsc"
 
 type CveModel = components["schemas"]["CveModel"]
 type CvePrediction = components["schemas"]["CvePrediction"]
@@ -221,7 +222,7 @@ export function CveFormList(props: CveFormListProps) {
           />
           {cveModels.length > 1 && (
             <button className="button" onClick={() => removeCve(index)}>
-              Remove this CVE {"(-)"}
+              <VscRemove /> Remove this CVE
             </button>
           )}
           {index !== cveModels.length - 1 && <hr className="mb-8 mt-2" />}
@@ -235,7 +236,7 @@ export function CveFormList(props: CveFormListProps) {
             className="bg-black my-4 button"
             onClick={() => addNewCve()}
           >
-            Add another CVE {"(+)"}
+            <VscAdd /> Add another CVE
           </button>
         </div>
       )}

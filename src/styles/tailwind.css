@@ -1,5 +1,5 @@
 @import "tailwindcss";
 
 .button {
-  @apply hover:underline;
+  @apply hover:underline flex gap-2 items-center my-2;
 }
