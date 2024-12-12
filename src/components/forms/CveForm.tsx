@@ -71,7 +71,7 @@ export function CveForm(props: CveFormProps) {
         e.stopPropagation()
         form.handleSubmit()
       }}
-      className="grid grid-cols-[auto_auto_auto] gap-4 p-4 border border-white rounded-2xl"
+      className="grid grid-cols-[auto_auto] xl:grid-cols-[auto_auto_auto] gap-4 p-4 border border-white rounded-2xl"
     >
       <form.Field name="attackVector">
         {(field) => (
@@ -276,13 +276,13 @@ export function CveFormPredict() {
   })
 
   return (
-    <div className="grid grid-cols-[2fr_auto_1fr] place-content-center gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-[2fr_auto_1fr] place-content-center gap-4">
       <div className="overflow-auto">
         <QueryClientProvider client={new QueryClient()}>
           <CveFormList onSubmit={(v) => setModels(v)} />
         </QueryClientProvider>
       </div>
-      <div className="w-px h-full bg-white" />
+      <div className="w-px h-full bg-white hidden lg:block" />
       {predictQuery.isLoading && (
         <div className="flex justify-center text-2xl py-4 w-full">
           <VscLoading className="animate-spin" />
