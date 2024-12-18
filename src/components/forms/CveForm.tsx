@@ -4,8 +4,8 @@ import { clientQuery as $api } from "../../clients/client"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import type { components } from "../../clients/schema"
 import z from "zod"
-import { useCallback, useEffect, useState } from "react"
-import { VscLoading } from "react-icons/vsc"
+import { useCallback, useEffect, useState, type ReactNode } from "react"
+import { VscLoading, VscLock, VscWarning } from "react-icons/vsc"
 import { VscAdd, VscRemove } from "react-icons/vsc"
 
 type CveModel = components["schemas"]["CveModel"]
@@ -250,13 +250,23 @@ export type CvePredictionProps = {
 
 export function CvePredictionRow(props: CvePredictionProps) {
   const humanLabel = [
-    "Probably exploit does not exist",
-    "Probably exploit exists",
+    <>
+      {props.prediction.score >= 0.7 && <VscLock className="text-sky-600" />}
+      {"Probably exploit does not exist"}
+    </>,
+    <>
+      {props.prediction.score >= 0.8 && (
+        <VscWarning className="text-amber-600" />
+      )}
+      {"Probably exploit exists"}
+    </>,
   ][props.prediction.label]
 
   return (
     <div className="border border-white rounded-2xl p-4">
-      <p className="font-bold text-xl">{humanLabel}</p>
+      <div className="font-bold text-xl flex items-center gap-2">
+        {humanLabel}
+      </div>
       <p>Score: {props.prediction.score.toLocaleString()}</p>
       <div className="opacity-25 flex gap-2 flex-wrap mt-2 text-xs">
         {Object.entries(props.prediction.inputModel).map(([key, value]) => (
